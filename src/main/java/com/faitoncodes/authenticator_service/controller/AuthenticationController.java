@@ -4,19 +4,13 @@ import com.faitoncodes.authenticator_service.dao.Usuario;
 import com.faitoncodes.authenticator_service.dto.LoginDTO;
 import com.faitoncodes.authenticator_service.dto.LoginResponseDTO;
 import com.faitoncodes.authenticator_service.dto.RegisterDTO;
-import com.faitoncodes.authenticator_service.repository.UsuarioRepository;
 import com.faitoncodes.authenticator_service.service.AuthenticationService;
 import com.faitoncodes.authenticator_service.service.JwtService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
 @Log4j2
@@ -43,7 +37,7 @@ public class AuthenticationController {
     public ResponseEntity<LoginResponseDTO> authenticate(@RequestBody LoginDTO loginUserDto){
         try{
             Usuario authenticatedUser = authenticationService.authenticate(loginUserDto);
-            String jwtToken = jwtService.generateToken(authenticatedUser);
+            String jwtToken = jwtService.generateToken(authenticatedUser, authenticatedUser.getUserId());
             LoginResponseDTO loginResponse = new LoginResponseDTO(jwtToken, jwtService.getExpirationTime());
             return ResponseEntity.ok(loginResponse);
         }catch (Exception e){
