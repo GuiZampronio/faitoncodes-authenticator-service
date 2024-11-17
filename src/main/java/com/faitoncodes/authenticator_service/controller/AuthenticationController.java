@@ -38,7 +38,7 @@ public class AuthenticationController {
         try{
             Usuario authenticatedUser = authenticationService.authenticate(loginUserDto);
             String jwtToken = jwtService.generateToken(authenticatedUser, authenticatedUser.getUserId());
-            LoginResponseDTO loginResponse = new LoginResponseDTO(jwtToken, jwtService.getExpirationTime());
+            LoginResponseDTO loginResponse = new LoginResponseDTO(jwtToken, jwtService.getExpirationTime(), authenticatedUser.getTipoUsuario());
             return ResponseEntity.ok(loginResponse);
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Autorização falhou", e);
