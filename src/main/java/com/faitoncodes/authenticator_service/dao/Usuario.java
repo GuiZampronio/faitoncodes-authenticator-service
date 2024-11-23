@@ -31,11 +31,15 @@ public class Usuario implements UserDetails {
       @Column(name = "tipo_usuario", nullable = false)
       private Integer tipoUsuario;
 
-      public Usuario(String nome, String email, String senha, Integer tipoUsuario) {
+      @Column(name = "color")
+      private String color;
+
+      public Usuario(String nome, String email, String senha, Integer tipoUsuario, String color) {
             this.nome = nome;
             this.email = email;
             this.senha = senha;
             this.tipoUsuario = tipoUsuario;
+            this.color = color;
       }
       public Usuario(){
       }
