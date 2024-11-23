@@ -1,8 +1,8 @@
 package com.faitoncodes.authenticator_service.util;
 
 public enum Role {
-    PROFESSOR(1, "Professor"),
-    ALUNO(2, "Aluno");
+    ALUNO(1, "Aluno"),
+    PROFESSOR(2, "Professor");
 
     private int valor;
     private String descricao;
